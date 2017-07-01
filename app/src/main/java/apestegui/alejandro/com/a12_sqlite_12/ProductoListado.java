@@ -1,5 +1,6 @@
 package apestegui.alejandro.com.a12_sqlite_12;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,13 +19,23 @@ import models.Categoria;
 import utils.DataBaseHelper;
 
 public class ProductoListado extends AppCompatActivity {
+    private static final int LISTAR = 1;
     private ListView lvProducto;
     private ProductoAdapter productoAdapter;
     private CategoriaAdapter categoriaAdapter;
+    private View.OnClickListener btnAgregarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(ProductoListado.this, ProductoMantenimiento.class);
+            startActivityForResult(intent, LISTAR);
+        }
+    };
     private AdapterView.OnItemClickListener lvProductoOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            Intent intent = new Intent(ProductoListado.this, ProductoMantenimiento.class);
+            intent.putExtra("id", productoAdapter.getItem(position).getId());
+            startActivityForResult(intent, LISTAR);
         }
     };
     private Spinner spFiltro;
@@ -40,6 +51,14 @@ public class ProductoListado extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == LISTAR) {
+                listarProducto();
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +73,8 @@ public class ProductoListado extends AppCompatActivity {
         }
 
         spFiltro = (Spinner) findViewById(R.id.spFiltro);
-        lvProducto = (ListView)findViewById(R.id.lvProductos);
+        lvProducto = (ListView) findViewById(R.id.lvProductos);
+        findViewById(R.id.btnAgregar).setOnClickListener(btnAgregarOnClickListener);
 
 
         categoriaAdapter = new CategoriaAdapter(ProductoListado.this);
@@ -68,20 +88,20 @@ public class ProductoListado extends AppCompatActivity {
 
         productoAdapter = new ProductoAdapter(ProductoListado.this, new ProductoDAO(ProductoListado.this).listar());
         lvProducto.setAdapter(productoAdapter);
+        lvProducto.setOnItemClickListener(lvProductoOnItemClickListener);
 
-        //listarProducto();
     }
 
-    public void toast(String mensaje){
+    public void toast(String mensaje) {
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
     public void listarProducto() {
-        toast(""+((Categoria)spFiltro.getSelectedItem()).getId());
+        toast("" + ((Categoria) spFiltro.getSelectedItem()).getId());
         productoAdapter.clear();
-        if (((Categoria)spFiltro.getSelectedItem()).getId()==0)
+        if (((Categoria) spFiltro.getSelectedItem()).getId() == 0)
             productoAdapter.addAll(new ProductoDAO(ProductoListado.this).listar());
         else
-            productoAdapter.addAll(new ProductoDAO(ProductoListado.this).listarCategoria(((Categoria)spFiltro.getSelectedItem()).getId()));
+            productoAdapter.addAll(new ProductoDAO(ProductoListado.this).listarCategoria(((Categoria) spFiltro.getSelectedItem()).getId()));
     }
 }

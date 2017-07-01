@@ -28,7 +28,7 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         TextView tvDescripcion, tvCategoria, tvPrecio, tvStock;
-        if(convertView == null)
+        if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.producto_item, parent, false);
 
         Producto producto = getItem(position);
@@ -40,8 +40,8 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
 
         tvDescripcion.setText(producto.getDescripcion());
         tvCategoria.setText(producto.getDescripcionCategoria());
-        tvPrecio.setText("S/."+producto.getPrecio());
-        tvStock.setText(""+producto.getStock());
+        tvPrecio.setText("S/." + producto.getPrecio());
+        tvStock.setText("" + producto.getStock());
 
         return convertView;
     }

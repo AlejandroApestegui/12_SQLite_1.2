@@ -31,15 +31,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void createDataBase() throws IOException {
         boolean dbExixts = checkDataBase();
 
-        if(dbExixts){
+        if (dbExixts) {
             // do nothing, database already exists
-        }
-        else{
+        } else {
             this.getReadableDatabase();
-            try{
+            try {
                 copyDataBase();
-            }catch (IOException e){
-                throw  new Error("Error copying database");
+            } catch (IOException e) {
+                throw new Error("Error copying database");
             }
         }
     }
@@ -47,13 +46,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private void copyDataBase() throws IOException {
 
         InputStream myInput = myContext.getAssets().open(DB_NAME);
-        String outFileName = DB_PATH+DB_NAME;
+        String outFileName = DB_PATH + DB_NAME;
 
         OutputStream myOutput = new FileOutputStream(outFileName);
 
         byte[] buffer = new byte[1024];
         int length;
-        while((length = myInput.read(buffer))>0){
+        while ((length = myInput.read(buffer)) > 0) {
             myOutput.write(buffer, 0, length);
         }
 
@@ -75,17 +74,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return checkBD != null ? true : false;
     }
 
-    public SQLiteDatabase openDataBase() throws SQLException{
-        if(myDataBase==null || !myDataBase.isOpen()){
+    public SQLiteDatabase openDataBase() throws SQLException {
+        if (myDataBase == null || !myDataBase.isOpen()) {
             //la abro
-            String myPath = DB_PATH+DB_NAME;
+            String myPath = DB_PATH + DB_NAME;
             myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
         }
 
         return myDataBase;
     }
-    public synchronized void close(){
-        if(myDataBase!=null){
+
+    public synchronized void close() {
+        if (myDataBase != null) {
             myDataBase.close();
         }
         super.close();

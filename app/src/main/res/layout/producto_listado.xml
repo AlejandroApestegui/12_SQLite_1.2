@@ -6,24 +6,27 @@
     android:orientation="vertical"
     tools:context="apestegui.alejandro.com.a12_sqlite_12.ProductoListado">
 
-   <Spinner
-       android:layout_marginTop="8dp"
-       android:layout_marginBottom="8dp"
-       android:layout_weight="0"
-       android:id="@+id/spFiltro"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
+    <Spinner
+        android:id="@+id/spFiltro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="0" />
+
     <ListView
-        android:layout_weight="2"
         android:id="@+id/lvProductos"
         android:layout_width="match_parent"
-        android:layout_height="0sp"/>
+        android:layout_height="0sp"
+        android:layout_weight="2" />
+
     <Button
+        android:id="@+id/btnAgregar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_weight="0"
         android:text="Agregar"
-        android:textAllCaps="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:textAllCaps="false" />
 
 </LinearLayout>

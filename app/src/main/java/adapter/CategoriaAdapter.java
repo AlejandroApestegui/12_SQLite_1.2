@@ -28,7 +28,7 @@ public class CategoriaAdapter extends ArrayAdapter<Categoria> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         TextView tvNombreCategoria;
-        if(convertView == null)
+        if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.categoria_item, parent, false);
 
         Categoria categoria = getItem(position);
@@ -42,7 +42,7 @@ public class CategoriaAdapter extends ArrayAdapter<Categoria> {
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         TextView tvNombreCategoria;
-        if(convertView == null)
+        if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.categoria_item, parent, false);
 
         Categoria categoria = getItem(position);

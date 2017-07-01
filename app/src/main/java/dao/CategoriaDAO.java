@@ -6,8 +6,8 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.DataBaseHelper;
 import models.Categoria;
+import utils.DataBaseHelper;
 
 /**
  * Created by Alejandro on 01/07/2017.
@@ -37,12 +37,12 @@ public class CategoriaDAO {
         List<Categoria> lista = new ArrayList<Categoria>();
 
         try {
-            Cursor cursor = new DataBaseHelper(context).openDataBase().query(TABLE, null, null, null, null, null,null, null);
-            if(cursor.moveToFirst()){
-                do{
+            Cursor cursor = new DataBaseHelper(context).openDataBase().query(TABLE, null, null, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
                     lista.add(cursorToCategoria(cursor));
                 }
-                while(cursor.moveToNext());
+                while (cursor.moveToNext());
             }
         } catch (Exception e) {
             e.printStackTrace();
